@@ -136,6 +136,21 @@ def download_image(client: httpx.Client, card_id: str, url: str) -> bool:
 # Database helpers
 # ---------------------------------------------------------------------------
 
+def delete_removed_cards(conn, current_names: set) -> None:
+    """Delete rows for cards that are no longer in the card list."""
+    with conn.cursor() as cur:
+        cur.execute("SELECT name FROM cards")
+        db_names = {row[0] for row in cur.fetchall()}
+    removed = db_names - current_names
+    if not removed:
+        log.info("No removed cards to delete.")
+        return
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM cards WHERE name = ANY(%s)", (list(removed),))
+    conn.commit()
+    log.info("Deleted %d removed card(s): %s", len(removed), ", ".join(sorted(removed)))
+
+
 def already_cached(conn, name: str) -> bool:
     """Return True if a card is already in the DB with image_cached = TRUE."""
     with conn.cursor() as cur:
@@ -196,6 +211,9 @@ def main() -> None:
     log.info("Found %d unique cards to process", len(cards))
 
     conn = psycopg2.connect(DATABASE_URL)
+
+    current_names = {name for name, _ in cards}
+    delete_removed_cards(conn, current_names)
 
     headers = {
         "User-Agent": "cubesim-cache-warmer/1.0",

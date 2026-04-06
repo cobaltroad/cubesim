@@ -1,4 +1,7 @@
-.PHONY: draft
+.PHONY: draft ingest
+
+ingest:
+	docker compose --profile tools run --rm cache-warmer
 
 draft:
 	docker compose --profile tools run --rm draft-builder

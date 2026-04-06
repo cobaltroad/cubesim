@@ -1,5 +1,6 @@
 1 Abrade
 1 Academy Manufactor
+1 Acquisition Octopus
 1 Adaptive Automaton
 1 Aether Gale
 1 Aminatou's Augury
@@ -12,9 +13,9 @@
 1 Archfiend of Sorrows
 1 Archmage Emeritus
 1 Archon of Emeria
-1 Ascendant Packleader
 1 Ashes of the Abhorrent
 1 Assert Perfection
+1 Augur of Autumn
 1 Authority of the Consuls
 1 Aven Interrupter
 1 Aven Mindcensor
@@ -26,19 +27,18 @@
 1 Black Market Connections
 1 Blacksmith's Skill
 1 Blight Grenade
+1 Blight Rot
 1 Blind Obedience
 1 Blood Artist
 1 Bloodline Pretender
 1 Bogardan Hellkite
+1 Bontu's Monument
 1 Borne Upon a Wind
 1 Bovine Intervention
 1 Brainstorm
-1 Bronze Guardian
 1 Burn Down the House
 1 Burning Sun's Fury
-1 Call the Mountain Chocobo
 1 Captain of the Watch
-1 Capture of Jingzhou
 1 Carnelian Orb of Dragonkind
 1 Carrion Feeder
 1 Cataclysmic Gearhulk
@@ -52,12 +52,12 @@
 1 Chocobo Racetrack
 1 Chomping Changeling
 1 Cleansing Nova
+1 Collector Ouphe
 1 Combat Research
 1 Commandeer
 1 Corpse Augur
 1 Coruscation Mage
 1 Costly Plunder
-1 Costume Closet
 1 Counterspell
 1 Cryptbreaker
 1 Cultivate
@@ -66,7 +66,6 @@
 1 Cursed Mirror
 1 Cut Down
 1 Darksteel Ingot
-1 Dead Weight
 1 Deadly Dispute
 1 Deadly Precision
 1 Deafening Silence
@@ -83,6 +82,7 @@
 1 Displacer Kitten
 1 Disrupt Decorum
 1 Disruption Protocol
+1 Divine Light
 1 Docent of Perfection
 1 Doomwake Giant
 1 Dragon's Hoard
@@ -98,30 +98,30 @@
 1 Eusocial Engineering
 1 Evacuation
 1 Fabrication Foundry
+1 Faithless Looting
 1 Fear of Sleep Paralysis
 1 Feed the Swarm
 1 Fell the Mighty
 1 Fellwar Stone
 1 Filigree Vector
-1 Final Flourish
 1 Finale of Devastation
 1 Flood of Tears
-1 Force of Vigor
+1 Foundry Inspector
 1 Fury
 1 Fyndhorn Elves
 1 Galadhrim Brigade
 1 Generous Gift
+1 Genji Glove
 1 Ghostly Pilferer
 1 Giant Adephage
-1 Gingerbrute
 1 Glorybringer
+1 Goblin Engineer
 1 Gods Willing
 1 Goldspan Dragon
 1 Grim Haruspex
 1 Grim Hireling
 1 Guttersnipe
 1 Hellkite Tyrant
-1 Hollowhenge Overlord
 1 Honor-Worn Shaku
 1 Hordewing Skaab
 1 Incubation Druid
@@ -131,10 +131,13 @@
 1 Invigorated Rampage
 1 Irenicus's Vile Duplication
 1 Jhoira's Familiar
+1 Kami of Celebration
 1 Kappa Cannoneer
 1 Karn's Bastion
 1 Kenrith's Transformation
 1 Key to the City
+1 Kinjalli's Sunwing
+1 Knight of Dusk's Shadow
 1 Lantern of Revealing
 1 Leonin Abunas
 1 Level Up
@@ -142,14 +145,9 @@
 1 Lightning Greaves
 1 Llanowar Elves
 1 Lord of the Accursed
-1 Lórien Revealed
 1 Luminarch Ascension
-1 Magmatic Hellkite
-1 Malakir Blood-Priest
 1 Mana Geode
 1 Mask of Memory
-1 Maskwood Nexus
-1 Memnite
 1 Memories Returning
 1 Mentor of the Meek
 1 Metallic Mimic
@@ -160,6 +158,8 @@
 1 Mirkwood Channeler
 1 Mirrormade
 1 Mizzium Mortars
+1 Mjölnir, Storm Hammer
+1 Mobilized District
 1 Monastery Swiftspear
 1 Moon-Blessed Cleric
 1 Moonlit Meditation
@@ -174,13 +174,12 @@
 1 Negate
 1 Nesting Grounds
 1 Nightmare Shepherd
-1 Nightpack Ambusher
 1 Noxious Gearhulk
 1 Noxious Revival
+1 Null Elemental Blast
 1 Omni-Changeling
 1 Open the Vaults
 1 Opportunistic Dragon
-1 Ornithopter
 1 Ornithopter of Paradise
 1 Path to Exile
 1 Phyrexian Censor
@@ -191,21 +190,23 @@
 1 Priest of Ancient Lore
 1 Priest of Titania
 1 Prophet of the Scarab
+1 Psychic Impetus
 1 Raid Bombardment
 1 Read the Bones
 1 Realmwalker
-1 Rebuff the Wicked
 1 Reckless Impulse
 1 Reclamation Sage
 1 Relentless Assault
 1 Relic of Legends
 1 Resentful Revelation
+1 Retreat to Coralhelm
 1 Return of the Wildspeaker
 1 Ride the Shoopuf
 1 Risky Research
 1 Rob the Archives
 1 Rogue's Gloves
 1 Rogue's Passage
+1 Ruin Crab
 1 Rumor Gatherer
 1 Sabotender
 1 Savage Summoning
@@ -213,22 +214,18 @@
 1 Scavenging Ooze
 1 Scene of the Crime
 1 Scourge of Valkas
-1 Scrap Trawler
+1 Scurry Oak
 1 Seasoned Dungeoneer
-1 Security Bypass
 1 Self-Reflection
 1 Selfless Spirit
-1 Sensei's Divining Top
-1 Sequestered Stash
 1 Sevinne's Reclamation
+1 Shantotto's Coercion
 1 Shark Typhoon
 1 Shimmer Myr
 1 Shivan Hellkite
-1 Sicarian Infiltrator
 1 Sight of the Scalelords
 1 Sizzling Changeling
 1 Skullclamp
-1 Skyclave Geopede
 1 Slice from the Shadows
 1 Slumbering Walker
 1 SOLDIER Military Program
@@ -238,10 +235,12 @@
 1 Soul Warden
 1 Soul's Attendant
 1 Spark Double
+1 Spatial Contortion
 1 Spell Pierce
 1 Spine of Ish Sah
 1 Springleaf Drum
-1 Steel Overseer
+1 Starnheim Courser
+1 Stirring Bard
 1 Stonecoil Serpent
 1 Stormbeacon Blade
 1 Strong Back
@@ -259,19 +258,19 @@
 1 Thieving Skydiver
 1 Thorn Mammoth
 1 Thoughtcast
+1 Threefold Thunderhulk
 1 Thwart the Grave
-1 Towashi Guide-Bot
+1 Timeless Witness
 1 Tragic Fall
 1 Training Grounds
 1 Treasure Cruise
 1 Treasure Vault
-1 Troll of Khazad-dûm
-1 Twinshot Sniper
 1 Ulcerate
 1 Unable to Scream
 1 Unbreakable Formation
 1 Undercellar Sweep
 1 Unexpected Windfall
+1 Universal Automaton
 1 Unquestioned Authority
 1 Untimely Malfunction
 1 Up the Beanstalk
@@ -279,6 +278,7 @@
 1 Venomcrawler
 1 Victimize
 1 Vile Entomber
+1 Viscera Seer
 1 Warmonger Hellkite
 1 Waste Not
 1 Werewolf Pack Leader
@@ -306,7 +306,6 @@ SIDEBOARD:
 1 Anje, Maid of Dishonor
 1 Arabella, Abandoned Doll
 1 Arvinox, the Mind Flail
-1 Ashen Rider
 1 Assassin's Trophy
 1 Azra Oddsmaker
 1 Baylen, the Haymaker
@@ -327,7 +326,6 @@ SIDEBOARD:
 1 Diabolic Vision
 1 Domri's Ambush
 1 Dovin's Veto
-1 Dragonlord Ojutai
 1 Drown in the Loch
 1 Escape to the Wilds
 1 Etali, Primal Conqueror
@@ -346,6 +344,7 @@ SIDEBOARD:
 1 God-Eternal Oketra
 1 Golbez, Crystal Collector
 1 Golgari Charm
+1 Graceful Restoration
 1 Gwenna, Eyes of Gaea
 1 Hancock, Ghoulish Mayor
 1 Imoti, Celebrant of Bounty
@@ -403,6 +402,7 @@ SIDEBOARD:
 1 Tempest Angler
 1 Terminate
 1 Thalia and The Gitrog Monster
+1 The Council of Four
 1 Third Path Iconoclast
 1 Thrakkus the Butcher
 1 Tifa, Martial Artist

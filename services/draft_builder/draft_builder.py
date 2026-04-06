@@ -73,22 +73,23 @@ def fetch_cards(conn, maindeck: bool, limit: int) -> list[dict]:
 def build_draft() -> dict:
     conn = psycopg2.connect(DATABASE_URL)
     try:
-        # --- fetch all needed cards upfront ---
-        # Pack 1: 4 players × 15 sideboard cards = 60
-        side_pack1 = fetch_cards(conn, maindeck=False, limit=PLAYER_COUNT * PACK1_SIZE)
+        # --- fetch all needed cards in one query per type to guarantee no duplicates ---
+        # Sideboard total: 4×15 (pack 1) + 4×3×2 (packs 2-4) = 60 + 24 = 84
+        side_total = PLAYER_COUNT * PACK1_SIZE + PLAYER_COUNT * 3 * PACK_SIDE_COUNT
+        all_side = fetch_cards(conn, maindeck=False, limit=side_total)
 
-        # Packs 2-4: 4 players × 3 packs × 2 sideboard = 24
-        side_packs24 = fetch_cards(conn, maindeck=False, limit=PLAYER_COUNT * 3 * PACK_SIDE_COUNT)
-
-        # Packs 2-4: 4 players × 3 packs × 18 maindeck = 216
-        main_packs24 = fetch_cards(conn, maindeck=True, limit=PLAYER_COUNT * 3 * PACK_MAIN_COUNT)
+        # Maindeck total: 4×3×18 (packs 2-4) = 216
+        main_total = PLAYER_COUNT * 3 * PACK_MAIN_COUNT
+        all_main = fetch_cards(conn, maindeck=True, limit=main_total)
     finally:
         conn.close()
 
-    # Shuffle for good measure (ORDER BY RANDOM() already randomised, but belt+suspenders)
-    random.shuffle(side_pack1)
-    random.shuffle(side_packs24)
-    random.shuffle(main_packs24)
+    random.shuffle(all_side)
+    random.shuffle(all_main)
+
+    # Slice the single sideboard pool into pack-1 cards and packs-2-4 cards
+    side_pack1  = all_side[:PLAYER_COUNT * PACK1_SIZE]
+    side_packs24 = all_side[PLAYER_COUNT * PACK1_SIZE:]
 
     players = []
     for p in range(PLAYER_COUNT):
@@ -105,7 +106,7 @@ def build_draft() -> dict:
             main_start = idx * PACK_MAIN_COUNT
 
             side_cards = side_packs24[side_start : side_start + PACK_SIDE_COUNT]
-            main_cards = main_packs24[main_start : main_start + PACK_MAIN_COUNT]
+            main_cards = all_main[main_start : main_start + PACK_MAIN_COUNT]
 
             pack_cards = side_cards + main_cards
             random.shuffle(pack_cards)  # mix sideboard and maindeck within pack
