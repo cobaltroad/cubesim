@@ -1,0 +1,64 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cubesim
+      POSTGRES_USER: cubesim
+      POSTGRES_PASSWORD: cubesim
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cubesim"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cache-warmer:
+    build: ./services/cache_warmer
+    profiles:
+      - tools
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cubesim:cubesim@db:5432/cubesim
+      INPUT_FILE: /input/commander-cube.txt
+      IMAGE_CACHE_DIR: /cache/images
+    volumes:
+      - ./input:/input:ro
+      - image_cache:/cache/images
+    restart: "no"
+
+  draft-builder:
+    build: ./services/draft_builder
+    profiles:
+      - tools
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cubesim:cubesim@db:5432/cubesim
+      OUTPUT_DIR: /drafts
+    volumes:
+      - ./drafts:/drafts
+    restart: "no"
+
+  draft-runner:
+    build: ./services/draft_runner
+    profiles:
+      - tools
+    stdin_open: true
+    tty: true
+    environment:
+      DRAFTS_DIR: /drafts
+    volumes:
+      - ./drafts:/drafts
+    restart: "no"
+
+volumes:
+  db_data:
+  image_cache:
