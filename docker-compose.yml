@@ -59,6 +59,35 @@ services:
       - ./drafts:/drafts
     restart: "no"
 
+  ui:
+    build: ./services/ui
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cubesim:cubesim@db:5432/cubesim
+      DRAFTS_DIR: /drafts
+      IMAGE_CACHE_DIR: /cache/images
+    volumes:
+      - ./drafts:/drafts
+      - image_cache:/cache/images
+    networks:
+      - default
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.cubesim-ui.rule=Host(`cube.cardtrak.app`)"
+      - "traefik.http.routers.cubesim-ui.entrypoints=websecure"
+      - "traefik.http.routers.cubesim-ui.tls=true"
+      - "traefik.http.routers.cubesim-ui.service=cubesim-ui-service"
+      - "traefik.http.services.cubesim-ui-service.loadbalancer.server.port=3000"
+
+networks:
+  traefik-public:
+    external: true
+
 volumes:
   db_data:
   image_cache:
