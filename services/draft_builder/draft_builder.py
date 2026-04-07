@@ -52,8 +52,9 @@ def fetch_cards(conn, maindeck: bool, limit: int) -> list[dict]:
                        NULLIF(scryfall_data->>'oracle_text', ''),
                        scryfall_data->'card_faces'->0->>'oracle_text'
                    ) AS oracle_text,
-                   scryfall_data->>'power'     AS power,
-                   scryfall_data->>'toughness' AS toughness
+                   scryfall_data->>'power'        AS power,
+                   scryfall_data->>'toughness'   AS toughness,
+                   (scryfall_data->>'edhrec_rank')::int AS edhrec_rank
             FROM cards
             WHERE image_cached = TRUE AND maindeck = %s
             ORDER BY RANDOM()

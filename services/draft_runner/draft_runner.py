@@ -137,11 +137,9 @@ def human_pick(pack: list[dict], n_picks: int, pass_num: int,
 
 
 def ai_pick(pack: list[dict], n_picks: int, player_num: int) -> list[dict]:
-    """AI picks randomly."""
-    picks = random.sample(pack, min(n_picks, len(pack)))
-    for p in picks:
-        print(f"  Player {player_num} picks: {p['name']}")
-    return picks
+    """Pick the n highest-ranked cards by EDHREC rank (lower rank = more popular)."""
+    sorted_pack = sorted(pack, key=lambda c: c.get("edhrec_rank") or 999999)
+    return sorted_pack[:min(n_picks, len(sorted_pack))]
 
 
 # ─────────────────────────────────────────────────────────────
