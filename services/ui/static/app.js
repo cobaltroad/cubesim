@@ -115,8 +115,8 @@ function renderLanding(app) {
       <h2>How it works</h2>
       <ol class="steps">
         <li>
-          <strong>Pack 1 — Sideboard picks</strong>
-          A pack of 15 cards is dealt to each player. Pick one card per pass as packs rotate around the table.
+          <strong>Commander Pack</strong>
+          A pack of 15 cards is dealt to each player. Pick one card per pass as packs rotate around the table. This is where you'll find your Commander.
         </li>
         <li>
           <strong>Packs 2–4 — Main deck picks</strong>
@@ -233,12 +233,12 @@ function renderDraftInProgress(app, draftName, state) {
   const header = document.createElement('div');
   header.className = 'draft-header';
   header.innerHTML = `
-    <h2>Pack ${state.current_pack}</h2>
+    <h2>${state.current_pack === 1 ? 'Commander Pack' : `Pack ${state.current_pack}`}</h2>
     <span class="meta">Pass ${state.current_pass}</span>
     <span class="meta">${state.current_pack_cards.length} cards in pack</span>
     <span class="meta">Pick ${n - state.human_picks_remaining + 1} of ${n}</span>
     <span class="spacer"></span>
-    <span class="meta">${state.drafted_human.length} drafted</span>
+    <button class="btn-drafted" id="toggle-drafted-btn">Drafted (${state.drafted_human.length})</button>
     <a href="#/" style="color:#aaa;font-size:0.85rem">← Drafts</a>
   `;
 
@@ -290,22 +290,35 @@ function renderDraftInProgress(app, draftName, state) {
     });
   }
 
-  // Sidebar
-  const sidebar = document.createElement('div');
-  sidebar.className = 'draft-sidebar';
-  sidebar.innerHTML = `
-    <div class="sidebar-header">Drafted (${state.drafted_human.length})</div>
-    <div class="sidebar-cards" id="sidebar-cards">
-      ${state.drafted_human.map(c =>
-        `<div class="sidebar-card" title="${esc(c.name)}">${esc(c.name)}</div>`
-      ).join('')}
+  // Drafted overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'drafted-overlay';
+  overlay.innerHTML = `
+    <div class="drafted-backdrop"></div>
+    <div class="drafted-panel">
+      <div class="drafted-panel-header">
+        <span>Drafted (${state.drafted_human.length})</span>
+        <button class="drafted-close" aria-label="Close">✕</button>
+      </div>
+      <div class="drafted-cards">
+        ${state.drafted_human.map(c =>
+          `<div class="drafted-card" title="${esc(c.name)}">${esc(c.name)}</div>`
+        ).join('')}
+      </div>
     </div>
   `;
 
+  const openOverlay  = () => overlay.classList.add('open');
+  const closeOverlay = () => overlay.classList.remove('open');
+  overlay.querySelector('.drafted-backdrop').addEventListener('click', closeOverlay);
+  overlay.querySelector('.drafted-close').addEventListener('click', closeOverlay);
+
   layout.appendChild(header);
   layout.appendChild(packArea);
-  layout.appendChild(sidebar);
   app.appendChild(layout);
+  app.appendChild(overlay);
+
+  header.querySelector('#toggle-drafted-btn').addEventListener('click', openOverlay);
 }
 
 function handleCardClick(item, card, draftName, state, app) {
@@ -392,11 +405,15 @@ async function renderPool(app, draftName) {
   const div = document.createElement('div');
   div.className = 'pool-view';
 
+  const moxfieldText = pool.cards.map(c => `1 ${c.name}`).join('\n');
+  const moxfieldUrl  = URL.createObjectURL(new Blob([moxfieldText], { type: 'text/plain' }));
+
   const header = document.createElement('div');
   header.className = 'pool-header';
   header.innerHTML = `
     <h1>Your Drafted Pool</h1>
     <span style="color:#aaa">${pool.total_drafted} cards</span>
+    <a href="${moxfieldUrl}" download="drafted-pool.txt" class="btn-primary" style="padding:6px 14px;border-radius:4px;font-size:0.85rem">Download for Moxfield</a>
     <a href="#/" class="btn-secondary" style="padding:6px 14px;border-radius:4px;font-size:0.85rem">← Drafts</a>
   `;
 

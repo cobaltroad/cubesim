@@ -12,11 +12,9 @@ from pathlib import Path
 import psycopg2
 import psycopg2.extras
 
-PLAYER_COUNT    = 4
-PACK1_SIZE      = 15
-PACK_SIDE_COUNT = 2
-PACK_MAIN_COUNT = 18
-PACK_SIZE       = PACK_SIDE_COUNT + PACK_MAIN_COUNT  # 20
+PLAYER_COUNT = 4
+PACK1_SIZE   = 15   # commander pack (maindeck=false)
+PACK_SIZE    = 20   # maindeck packs 2-4 (maindeck=true)
 
 
 def _fetch_cards(conn, maindeck: bool, limit: int) -> list[dict]:
@@ -60,31 +58,24 @@ def _fetch_cards(conn, maindeck: bool, limit: int) -> list[dict]:
 def _build_draft(db_url: str) -> dict:
     conn = psycopg2.connect(db_url)
     try:
-        side_total = PLAYER_COUNT * PACK1_SIZE + PLAYER_COUNT * 3 * PACK_SIDE_COUNT
-        all_side   = _fetch_cards(conn, maindeck=False, limit=side_total)
-        main_total = PLAYER_COUNT * 3 * PACK_MAIN_COUNT
-        all_main   = _fetch_cards(conn, maindeck=True, limit=main_total)
+        # Commander pack: 4 players × 15 cards from maindeck=false
+        all_commanders = _fetch_cards(conn, maindeck=False, limit=PLAYER_COUNT * PACK1_SIZE)
+        # Maindeck packs 2-4: 4 players × 3 packs × 20 cards from maindeck=true
+        all_main = _fetch_cards(conn, maindeck=True, limit=PLAYER_COUNT * 3 * PACK_SIZE)
     finally:
         conn.close()
 
-    random.shuffle(all_side)
+    random.shuffle(all_commanders)
     random.shuffle(all_main)
-
-    side_pack1   = all_side[: PLAYER_COUNT * PACK1_SIZE]
-    side_packs24 = all_side[PLAYER_COUNT * PACK1_SIZE :]
 
     players = []
     for p in range(PLAYER_COUNT):
-        pack1_start = p * PACK1_SIZE
-        pack1       = side_pack1[pack1_start : pack1_start + PACK1_SIZE]
-        packs       = [{"pack": 1, "cards": pack1}]
+        pack1 = all_commanders[p * PACK1_SIZE : (p + 1) * PACK1_SIZE]
+        packs = [{"pack": 1, "cards": pack1}]
 
         for pack_num in range(2, 5):
             idx        = p * 3 + (pack_num - 2)
-            side_cards = side_packs24[idx * PACK_SIDE_COUNT : (idx + 1) * PACK_SIDE_COUNT]
-            main_cards = all_main[idx * PACK_MAIN_COUNT   : (idx + 1) * PACK_MAIN_COUNT]
-            pack_cards = side_cards + main_cards
-            random.shuffle(pack_cards)
+            pack_cards = all_main[idx * PACK_SIZE : (idx + 1) * PACK_SIZE]
             packs.append({"pack": pack_num, "cards": pack_cards})
 
         players.append({
