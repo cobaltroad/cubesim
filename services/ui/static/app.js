@@ -116,15 +116,15 @@ function renderLanding(app) {
       <ol class="steps">
         <li>
           <strong>Commander Pack</strong>
-          A pack of 15 cards is dealt to each player. Pick one card per pass as packs rotate around the table. This is where you'll find your Commander.
+          15 cards drawn from the Commander pool. Pick 1 card per pass as packs rotate left. Choose your Commander here.
         </li>
         <li>
-          <strong>Packs 2–4 — Main deck picks</strong>
-          Three more packs of 20 cards (2 sideboard + 18 main deck). Pick two cards per pass, with pack direction alternating each round.
+          <strong>Packs 2–4</strong>
+          20 cards drawn from the main deck pool. Pick 2 cards per pass. Direction alternates each pack.
         </li>
         <li>
-          <strong>Your pool</strong>
-          When all packs are done you'll have 75 cards. Review your drafted pool and plan your Commander deck.
+          <strong>Your Pool</strong>
+          75 cards total. Download your pool at the end and import it into Moxfield to build your deck.
         </li>
       </ol>
       <div class="draft-details">
@@ -132,7 +132,7 @@ function renderLanding(app) {
         <span>·</span>
         <span>4 packs</span>
         <span>·</span>
-        <span>75 cards each</span>
+        <span>75 cards</span>
       </div>
     </div>
 
